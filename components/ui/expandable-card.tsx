@@ -1,5 +1,6 @@
 import * as React from "react"
 import { AnimatePresence, motion } from "motion/react"
+import { createPortal } from "react-dom"
 
 import { cn } from "@/lib/utils"
 
@@ -10,7 +11,7 @@ interface ExpandableCardProps {
   children?: React.ReactNode
   className?: string
   classNameExpanded?: string
-  [key: string]: any
+  [key: string]: unknown
 }
 
 export function ExpandableCard({
@@ -50,7 +51,7 @@ export function ExpandableCard({
     }
   }, [])
 
-  return (
+  const expandedContent = (
     <>
       <AnimatePresence>
         {active && (
@@ -141,6 +142,14 @@ export function ExpandableCard({
           </div>
         )}
       </AnimatePresence>
+    </>
+  )
+
+  return (
+    <>
+      {typeof document !== "undefined"
+        ? createPortal(expandedContent, document.body)
+        : null}
 
       <motion.div
         role="dialog"

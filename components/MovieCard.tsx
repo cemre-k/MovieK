@@ -1,16 +1,18 @@
 import { ExpandableCard } from "@/components/ui/expandable-card";
-import {getMovieDetails} from "@/api/movies"
+import type { Movie } from "@/api/movies"
 import { Button } from "@/components/ui/button";
 
 
+type MovieCardProps = {
+  movie: Movie
+}
 
-
-function MovieCard({movie}) {
+function MovieCard({ movie }: MovieCardProps) {
   return (
   <ExpandableCard
     title={movie.title}
     src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-    description={movie.tagline}
+    description={movie.release_date}
   >
     <div className="flex flex-col gap-8 items-center justify-center">
       {movie.overview}

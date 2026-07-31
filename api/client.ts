@@ -1,5 +1,4 @@
 const TMDB_TOKEN =import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN
-const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY
 
 
 import axios from "axios";
