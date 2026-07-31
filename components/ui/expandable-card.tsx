@@ -58,7 +58,7 @@ export function ExpandableCard({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-10 h-full w-80 bg-white/50 backdrop-blur-md dark:bg-black/50"
+            className="fixed inset-0 z-10 h-full w-full bg-white/50 backdrop-blur-md dark:bg-black/50"
           />
         )}
       </AnimatePresence>
@@ -90,12 +90,7 @@ export function ExpandableCard({
               <div className="relative h-full before:fixed before:inset-x-0 before:bottom-0 before:z-50 before:h-[70px] before:bg-gradient-to-t before:from-zinc-50 dark:before:from-zinc-950">
                 <div className="flex h-auto items-start justify-between p-8">
                   <div>
-                    <motion.p
-                      layoutId={`description-${description}-${id}`}
-                      className="text-lg text-zinc-500 dark:text-zinc-400"
-                    >
-                      {description}
-                    </motion.p>
+                    
                     <motion.h3
                       layoutId={`title-${title}-${id}`}
                       className="mt-0.5 text-4xl font-semibold text-black sm:text-4xl dark:text-white"
@@ -154,7 +149,7 @@ export function ExpandableCard({
         layoutId={`card-${title}-${id}`}
         onClick={() => setActive(true)}
         className={cn(
-          "flex cursor-pointer w-96 flex-col items-center justify-between rounded-2xl border border-gray-200/70 bg-zinc-50 p-3 shadow-sm dark:border-zinc-900 dark:bg-zinc-950 dark:shadow-none",
+          "flex cursor-pointer min-w-72 flex-col items-center justify-between rounded-2xl border border-gray-200/70 bg-zinc-50 p-3 shadow-sm dark:border-zinc-900 dark:bg-zinc-950 dark:shadow-none",
           className
         )}
       >
@@ -168,18 +163,19 @@ export function ExpandableCard({
           </motion.div>
           <div className="flex items-center justify-between">
             <div className="flex flex-col">
-              <motion.p
-                layoutId={`description-${description}-${id}`}
-                className="text-sm font-medium text-zinc-500 md:text-left dark:text-zinc-400"
-              >
-                {description}
-              </motion.p>
               <motion.h3
                 layoutId={`title-${title}-${id}`}
                 className="font-semibold text-black md:text-left dark:text-white"
               >
                 {title}
               </motion.h3>
+              <motion.p
+                layoutId={`description-${description}-${id}`}
+                className="text-sm font-medium text-zinc-500 md:text-left dark:text-zinc-400"
+              >
+                {description}
+              </motion.p>
+              
             </div>
             <motion.button
               aria-label="Open card"

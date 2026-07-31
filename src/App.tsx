@@ -1,6 +1,11 @@
 import './App.css'
 import MovieCard from "../components/MovieCard"
+import {getPopularMovies} from "@/api/movies"
+
 import { useEffect } from 'react'
+
+const response =await getPopularMovies()
+const movies =response.results
 
 function App() {
   useEffect(()=>{
@@ -8,9 +13,9 @@ function App() {
   },[])
 
   return (
-    <>
-      <MovieCard/>
-    </>
+    <div className='flex gap-4'>
+      {movies.map((el)=><MovieCard movie={el}/>)}      
+    </div>
   )
 }
 

@@ -1,17 +1,21 @@
 import { ExpandableCard } from "@/components/ui/expandable-card";
-import { Button } from "@/components/ui/button"
-import { Badge } from "./ui/badge"
+import {getMovieDetails} from "@/api/movies"
+import { Button } from "@/components/ui/button";
+
 
 
 
 function MovieCard({movie}) {
   return (
   <ExpandableCard
-    title="Whispering Forest"
-    src="/images/components/expandable-card/haunted-house.webp"
-    description="A Yokai Tale"
+    title={movie.title}
+    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+    description={movie.tagline}
   >
-    deneme
+    <div className="flex flex-col gap-8 items-center justify-center">
+      {movie.overview}
+      <Button className="w-md">Go to Movie page</Button>
+    </div>
   </ExpandableCard>
   )
 }
