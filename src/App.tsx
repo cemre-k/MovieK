@@ -1,6 +1,7 @@
-import PopularMoviesCarousel from '@/components/PopularMoviesCarousel'
+import { MovieCategoryCarousel } from '@/components/MovieCategoryCarousel'
 import './App.css'
 import { useEffect } from 'react'
+import { usePopularMovies } from '@/hooks/usePopularMovies'
 
 
 
@@ -15,7 +16,7 @@ function App() {
 
   return (
     <div className='flex gap-4 m-24'>
-      <PopularMoviesCarousel/>
+      <MovieCategoryCarousel title="Popular Movies" useMovies={usePopularMovies}/>
     </div>
   )
 }
