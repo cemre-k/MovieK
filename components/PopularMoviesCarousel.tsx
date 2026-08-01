@@ -1,11 +1,5 @@
-import MovieCard from "../components/MovieCard"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
+import CategoryHeader from './CategoryHeader';
+import MoviesCarousel from './MoviesCarousel';
 
 import {usePopularMovies} from '@/hooks/usePopularMovies'
 
@@ -25,17 +19,10 @@ export function PopularMoviesCarousel() {
 
     const movies = data.results;
     return (
-        <Carousel className='w-full'>
-        <CarouselContent>
-          {movies.map((el) => (
-            <CarouselItem key={el.id} className="basis-auto">
-              <MovieCard movie={el} />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>  
+       <div className="w-full flex flex-col justify-start items-start gap-2">
+            <CategoryHeader>Popular Movies</CategoryHeader>
+            <MoviesCarousel movies={movies}/>
+        </div>
     )
 }
 
