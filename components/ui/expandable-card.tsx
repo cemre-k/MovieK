@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 interface ExpandableCardProps {
   title: string;
   src: string;
+  srcExpanded: string;
   description: string;
   children?: React.ReactNode;
   className?: string;
@@ -17,6 +18,7 @@ interface ExpandableCardProps {
 export function ExpandableCard({
   title,
   src,
+  srcExpanded,
   description,
   children,
   className,
@@ -63,18 +65,17 @@ export function ExpandableCard({
           />
         )}
       </AnimatePresence>
+
       <AnimatePresence>
         {active && (
           <div
-            className={cn(
-              "fixed inset-0 z-[100] grid place-items-center before:pointer-events-none sm:mt-16",
-            )}
+            className={cn("fixed inset-0 z-[100] grid place-items-center p-4")}
           >
             <motion.div
               layoutId={`card-${title}-${id}`}
               ref={cardRef}
               className={cn(
-                "relative flex h-fit w-full max-w-[850px] flex-col overflow-auto bg-zinc-50 shadow-sm [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] sm:rounded-3xl dark:bg-zinc-950 dark:shadow-none",
+                "relative flex max-h-[90vh] w-full max-w-[850px] flex-col overflow-auto bg-zinc-50 shadow-sm [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] sm:rounded-3xl dark:bg-zinc-950 dark:shadow-none",
                 classNameExpanded,
               )}
               {...props}
@@ -82,22 +83,24 @@ export function ExpandableCard({
               <motion.div layoutId={`image-${title}-${id}`}>
                 <div className='relative before:absolute before:inset-x-0 before:bottom-[-1px] before:z-50 before:h-[70px] before:bg-gradient-to-t before:from-zinc-50 dark:before:from-zinc-950'>
                   <img
-                    src={src}
+                    src={srcExpanded}
                     alt={title}
-                    className='h-80 w-full object-cover object-center'
+                    className='h-80 w-full object-cover object-top'
                   />
                 </div>
               </motion.div>
-              <div className='relative h-full before:fixed before:inset-x-0 before:bottom-0 before:z-50 before:h-[70px] before:bg-gradient-to-t before:from-zinc-50 dark:before:from-zinc-950'>
+
+              <div className='relative h-full'>
                 <div className='flex h-auto items-start justify-between p-8'>
                   <div>
                     <motion.h3
                       layoutId={`title-${title}-${id}`}
-                      className='mt-0.5 text-4xl font-semibold text-black sm:text-4xl dark:text-white'
+                      className='mt-0.5 text-4xl font-semibold text-black dark:text-white'
                     >
                       {title}
                     </motion.h3>
                   </div>
+
                   <motion.button
                     aria-label='Close card'
                     layoutId={`button-${title}-${id}`}
@@ -125,6 +128,7 @@ export function ExpandableCard({
                     </motion.div>
                   </motion.button>
                 </div>
+
                 <div className='relative px-6 sm:px-8'>
                   <motion.div
                     layout
