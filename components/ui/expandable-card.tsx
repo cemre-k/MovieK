@@ -75,7 +75,7 @@ export function ExpandableCard({
               layoutId={`card-${title}-${id}`}
               ref={cardRef}
               className={cn(
-                "relative flex max-h-[90vh] w-full max-w-[850px] flex-col overflow-auto bg-zinc-50 shadow-sm [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] sm:rounded-3xl dark:bg-zinc-950 dark:shadow-none",
+                "relative flex max-h-[90vh] w-full max-w-[850px] flex-col overflow-auto bg-zinc-50 shadow-sm [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] sm:rounded-xl dark:bg-zinc-950 dark:shadow-none",
                 classNameExpanded,
               )}
               {...props}
