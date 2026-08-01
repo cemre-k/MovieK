@@ -14,9 +14,9 @@ function MovieCard({ movie }: MovieCardProps) {
       description=''
       srcExpanded={`https://image.tmdb.org/t/p/w780/${movie.backdrop_path}`}
     >
-      <div className='flex flex-col gap-8 items-center justify-center'>
+      <div className='flex flex-col gap-8 items-end justify-center'>
         {movie.overview}
-        <Button className='w-md'>Go to Movie page</Button>
+        <Button className='w-32'>Go to Movie page</Button>
       </div>
     </ExpandableCard>
   );

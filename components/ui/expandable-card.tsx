@@ -161,7 +161,7 @@ export function ExpandableCard({
         layoutId={`card-${title}-${id}`}
         onClick={() => setActive(true)}
         className={cn(
-          "flex cursor-pointer min-w-96 flex-col items-center justify-between rounded-xl border border-gray-200/70 bg-zinc-50 p-3 shadow-sm dark:border-zinc-900 dark:bg-zinc-950 dark:shadow-none",
+          "flex cursor-pointer min-w-96 flex-col items-center justify-between rounded-xl border-gray-200/70 bg-zinc-50 p-3 shadow-sm dark:border-zinc-900 dark:bg-transparent dark:hover:bg-zinc-900/40 dark:shadow-none",
           className,
         )}
       >
@@ -177,7 +177,7 @@ export function ExpandableCard({
             <div className='flex flex-col'>
               <motion.h3
                 layoutId={`title-${title}-${id}`}
-                className='font-semibold text-black md:text-left dark:text-white'
+                className='font-semibold text-black md:text-left dark:text-white mb-2'
               >
                 {title}
               </motion.h3>
@@ -188,34 +188,6 @@ export function ExpandableCard({
                 {description}
               </motion.p>
             </div>
-            <motion.button
-              aria-label='Open card'
-              layoutId={`button-${title}-${id}`}
-              className={cn(
-                "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gray-200/90 bg-zinc-50 text-neutral-700 transition-colors duration-300 hover:border-gray-300/90 hover:bg-neutral-50 hover:text-black focus:outline-none dark:border-zinc-900 dark:bg-zinc-950 dark:text-white/70 dark:hover:border-zinc-800 dark:hover:bg-neutral-950 dark:hover:text-white",
-                className,
-              )}
-            >
-              <motion.div
-                animate={{ rotate: active ? 45 : 0 }}
-                transition={{ duration: 0.4 }}
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='16'
-                  height='16'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                >
-                  <path d='M5 12h14' />
-                  <path d='M12 5v14' />
-                </svg>
-              </motion.div>
-            </motion.button>
           </div>
         </div>
       </motion.div>

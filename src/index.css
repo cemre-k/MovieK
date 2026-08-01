@@ -176,6 +176,11 @@
   --tracking-wide: calc(var(--tracking-normal) + 0.025em);
   --tracking-wider: calc(var(--tracking-normal) + 0.05em);
   --tracking-widest: calc(var(--tracking-normal) + 0.1em);
+
+  --text-display: 3rem;
+  --text-heading: 2rem;
+  --text-body: 1rem;
+  --text-caption: 0.875rem;
 }
 
 @layer base {
