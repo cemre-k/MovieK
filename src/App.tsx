@@ -1,24 +1,25 @@
-import { MovieCategoryCarousel } from '@/components/MovieCategoryCarousel'
-import './App.css'
-import { useEffect } from 'react'
-import { usePopularMovies } from '@/hooks/usePopularMovies'
-
-
-
-
+import { MovieCategoryCarousel } from "@/components/MovieCategoryCarousel";
+import "./App.css";
+import { useEffect } from "react";
+import { usePopularMovies } from "@/hooks/usePopularMovies";
+import { useTopRated } from "@/hooks/useTopRated";
 function App() {
-  useEffect(()=>{
-    document.documentElement.classList.add("dark")
-  },[])
-
-
-
+  useEffect(() => {
+    document.documentElement.classList.add("dark");
+  }, []);
 
   return (
-    <div className='flex gap-4 m-24'>
-      <MovieCategoryCarousel title="Popular Movies" useMovies={usePopularMovies}/>
+    <div className='m-24 flex h-full flex-col gap-4'>
+      <MovieCategoryCarousel
+        title='Popular Movies'
+        useMovies={usePopularMovies}
+      />
+      <MovieCategoryCarousel
+        title='Top Rated'
+        useMovies={useTopRated}
+      />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

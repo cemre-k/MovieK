@@ -41,7 +41,7 @@ export function MovieCategoryCarousel({
   const movies = data.results;
 
   return (
-    <div className='flex w-full flex-col items-start justify-start gap-2'>
+    <div className='mb-8 flex w-full flex-col items-start justify-start gap-2'>
       <CategoryHeader>{title}</CategoryHeader>
       <Carousel className='w-full'>
         <CarouselContent>
