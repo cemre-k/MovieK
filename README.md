@@ -1,77 +1,53 @@
-# React + TypeScript + Vite
+# MovieK
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Netflix-inspired movie browsing app I built because I had some free time and wanted to experiment with modern frontend technologies.
 
-Currently, two official plugins are available:
+Honestly, I don't know where this project is going yet, but that's part of the fun.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+If you wanna check out what I do in my free time, the project is live here:
 
-## React Compiler
+- https://movie-k-lime.vercel.app/
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+> 🚧 This project is still a work in progress. Features, design choices, and technologies may change as I continue experimenting and improving it.
 
-Note: This will impact Vite dev & build performances.
+## About
 
-## Expanding the ESLint configuration
+MovieK is a movie discovery app inspired by streaming platforms. The main goal of this project is to practice building a modern React application while exploring things like API integration, state management, animations, and reusable UI components.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Browse popular movies
+- Search and explore movie data
+- Responsive layouts for desktop and mobile
+- Animated UI interactions
+- Movie carousels
+- Modern component-based architecture
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Technologies Used
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- TanStack Query
+- Axios
+- Embla Carousel
+- Motion
+- Lucide React
+- shadcn/ui
+- Base UI
 
-```
+## Things I Experimented With
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Managing server state with TanStack Query
+- Building reusable components with React
+- Creating responsive designs with Tailwind CSS
+- Working with external APIs
+- Handling animations and transitions
+- Exploring modern React tooling
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Current Status
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+The project is still actively being worked on. Some parts may be incomplete, and some decisions may change as I continue learning and experimenting.
 
-```
+The goal is less about building a perfect clone and more about understanding how these technologies work together.
