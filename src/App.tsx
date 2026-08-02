@@ -10,7 +10,7 @@ function App() {
   }, []);
 
   return (
-    <div className='m-24 flex h-full flex-col gap-4'>
+    <div className='mt-24 p-2 md:mx-16 flex h-full flex-col gap-4 '>
       <Header />
       <MovieCategoryCarousel
         title='Popular Movies'
