@@ -83,7 +83,7 @@ export function HeroCarousel() {
                           "A new cinematic experience is waiting for you."}
                       </p>
 
-                      <div className='mt-6 flex flex-wrap gap-3'>
+                      <div className='mt-6 flex flex-wrap gap-3  '>
                         <ExpandableCard
                           title={movie.title}
                           src={posterUrl}
@@ -97,7 +97,7 @@ export function HeroCarousel() {
                           trigger={
                             <Button
                               variant='outline'
-                              className='rounded-full border-white/20 w-xs bg-black/30 px-5 text-white hover:bg-black/50 '
+                              className='rounded-full border-white/20 md:w-xl bg-black/30 text-white hover:bg-black/50 '
                             >
                               More info
                             </Button>
