@@ -1,5 +1,3 @@
-import React from "react";
-
 function Header() {
   return (
     <div className='absolute top-0 left-0 border-b border-border shadow-shadow w-full h-16 flex justify-between items-center md:px-24 px-3'>

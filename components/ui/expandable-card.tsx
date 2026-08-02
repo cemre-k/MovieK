@@ -12,6 +12,10 @@ interface ExpandableCardProps {
   children?: React.ReactNode;
   className?: string;
   classNameExpanded?: string;
+  showPreview?: boolean;
+  trigger?: React.ReactNode;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
   [key: string]: unknown;
 }
 
@@ -23,11 +27,28 @@ export function ExpandableCard({
   children,
   className,
   classNameExpanded,
+  showPreview = true,
+  trigger,
+  open,
+  onOpenChange,
   ...props
 }: ExpandableCardProps) {
-  const [active, setActive] = React.useState(false);
+  const [internalActive, setInternalActive] = React.useState(false);
+  const isControlled = open !== undefined;
+  const active = isControlled ? open : internalActive;
   const cardRef = React.useRef<HTMLDivElement>(null);
   const id = React.useId();
+
+  const setActive = React.useCallback(
+    (next: boolean) => {
+      if (!isControlled) {
+        setInternalActive(next);
+      }
+
+      onOpenChange?.(next);
+    },
+    [isControlled, onOpenChange],
+  );
 
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -154,43 +175,54 @@ export function ExpandableCard({
         ? createPortal(expandedContent, document.body)
         : null}
 
-      <motion.div
-        role='dialog'
-        aria-labelledby={`card-title-${id}`}
-        aria-modal='true'
-        layoutId={`card-${title}-${id}`}
-        onClick={() => setActive(true)}
-        className={cn(
-          "flex cursor-pointer md:w-sm w-32 flex-col items-center justify-between rounded-xl border-gray-200/70 bg-zinc-50 p-3 shadow-sm dark:border-zinc-900 dark:bg-transparent dark:hover:bg-zinc-900/40 dark:shadow-none",
-          className,
-        )}
-      >
-        <div className='flex flex-col gap-4'>
-          <motion.div layoutId={`image-${title}-${id}`}>
-            <img
-              src={src}
-              alt={title}
-              className='md:h-64 md:w-96 h-48 w-96 rounded-lg object-cover object-[50%_15%]'
-            />
-          </motion.div>
-          <div className='flex items-center justify-between'>
-            <div className='flex flex-col'>
-              <motion.h3
-                layoutId={`title-${title}-${id}`}
-                className='font-semibold text-black md:text-left dark:text-white mb-2'
-              >
-                {title}
-              </motion.h3>
-              <motion.p
-                layoutId={`description-${description}-${id}`}
-                className='text-sm font-medium text-zinc-500 md:text-left dark:text-zinc-400'
-              >
-                {description}
-              </motion.p>
+      {trigger ? (
+        <div
+          className='inline-flex'
+          onClick={() => setActive(true)}
+        >
+          {trigger}
+        </div>
+      ) : null}
+
+      {showPreview && !trigger ? (
+        <motion.div
+          role='dialog'
+          aria-labelledby={`card-title-${id}`}
+          aria-modal='true'
+          layoutId={`card-${title}-${id}`}
+          onClick={() => setActive(true)}
+          className={cn(
+            "flex cursor-pointer md:w-sm w-32 flex-col items-center justify-between rounded-xl border-gray-200/70 bg-zinc-50 p-3 shadow-sm dark:border-zinc-900 dark:bg-transparent dark:hover:bg-zinc-900/40 dark:shadow-none",
+            className,
+          )}
+        >
+          <div className='flex flex-col gap-4'>
+            <motion.div layoutId={`image-${title}-${id}`}>
+              <img
+                src={src}
+                alt={title}
+                className='md:h-64 md:w-96 h-48 w-96 rounded-lg object-cover object-[50%_15%]'
+              />
+            </motion.div>
+            <div className='flex items-center justify-between'>
+              <div className='flex flex-col'>
+                <motion.h3
+                  layoutId={`title-${title}-${id}`}
+                  className='font-semibold text-black md:text-left dark:text-white mb-2'
+                >
+                  {title}
+                </motion.h3>
+                <motion.p
+                  layoutId={`description-${description}-${id}`}
+                  className='text-sm font-medium text-zinc-500 md:text-left dark:text-zinc-400'
+                >
+                  {description}
+                </motion.p>
+              </div>
             </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      ) : null}
     </>
   );
 }
