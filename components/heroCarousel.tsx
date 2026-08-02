@@ -61,7 +61,7 @@ export function HeroCarousel() {
                 key={movie.id}
                 className='pl-0'
               >
-                <div className='relative min-h-[480px] overflow-hidden md:min-h-[560px]'>
+                <div className='relative min-h-[480px] overflow-hidden md:min-h-[560px] flex items-end-safe'>
                   <img
                     src={backdropUrl}
                     alt={movie.title}
@@ -70,7 +70,7 @@ export function HeroCarousel() {
                   <div className='absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/25' />
                   <div className='absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent' />
 
-                  <div className='relative z-10 flex h-full flex-col justify-between gap-8 p-6 sm:p-8 lg:flex-row lg:items-end lg:p-10'>
+                  <div className='relative z-10 flex h-full flex-col justify-between gap-8 p-6 sm:p-8 lg:flex-row lg:items-end lg:p-10 md:ms-12 md:mb-12'>
                     <div className='max-w-2xl'>
                       <p className='mb-3 inline-flex rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-zinc-200 backdrop-blur-sm'>
                         Featured now
@@ -97,7 +97,7 @@ export function HeroCarousel() {
                           trigger={
                             <Button
                               variant='outline'
-                              className='rounded-full border-white/20 bg-black/30 px-5 text-white hover:bg-black/50'
+                              className='rounded-full border-white/20 w-xs bg-black/30 px-5 text-white hover:bg-black/50 '
                             >
                               More info
                             </Button>
@@ -128,8 +128,8 @@ export function HeroCarousel() {
           })}
         </CarouselContent>
 
-        <CarouselPrevious className='left-4 top-1/2 z-20 hidden -translate-y-1/2 border-white/20 bg-black/50 text-white hover:bg-black/80 md:flex' />
-        <CarouselNext className='right-4 top-1/2 z-20 hidden -translate-y-1/2 border-white/20 bg-black/50 text-white hover:bg-black/80 md:flex' />
+        <CarouselPrevious className='left-4 top-0 z-20 hidden  border-white/20 bg-black/50 text-white hover:bg-black/80 md:flex' />
+        <CarouselNext className='right-4 top-0 z-20 hidden border-white/20 bg-black/50 text-white hover:bg-black/80 md:flex' />
       </Carousel>
     </section>
   );
