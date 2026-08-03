@@ -1,5 +1,5 @@
 import { api } from "@/api/client";
-import type { PopularMoviesResponse , MovieDetails } from "./types";
+import type { PopularMoviesResponse , MovieDetails, MovieCredits } from "./types";
 
 export async function getPopularMovies(): Promise<PopularMoviesResponse> {
     const response = await api.get<PopularMoviesResponse>("/movie/popular");
@@ -23,4 +23,9 @@ export async function getMovieDetails(movie_id: number): Promise<MovieDetails> {
     const response = await api.get<MovieDetails>(`/movie/${movie_id}`);
 
     return response.data;
+}
+
+export async function getMovieCredits(movieId: number):Promise<MovieCredits> {
+  const { data } = await api.get<MovieCredits>(`/movie/${movieId}/credits`);
+  return data;
 }

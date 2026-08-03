@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/carousel";
 import { useNowPlaying } from "@/hooks/useNowPlaying";
 import type { Movie } from "@/api/types";
+import MovieExtraDetails from "./MovieExtraDetails";
 
 function buildImageUrl(
   path: string | null | undefined,
@@ -114,8 +115,9 @@ export function HeroCarousel() {
                                 {movie.original_language.toUpperCase()}
                               </span>
                               <span className='rounded-full bg-white/10 px-2.5 py-1 text-[11px] uppercase tracking-[0.2em]'>
-                                TMDB
+                                TMDB Rating : {movie.vote_average}
                               </span>
+                              <MovieExtraDetails movieId={movie.id} />
                             </div>
                           </div>
                         </ExpandableCard>
