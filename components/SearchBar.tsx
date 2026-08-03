@@ -55,7 +55,6 @@ function SearchBar() {
               <InputGroup>
                 <InputGroupInput
                   id='mobile-search-input'
-                  className='focus:border-yellow-600/50'
                   value={searchVal}
                   onChange={(e) => setSearchVal(e.target.value)}
                   placeholder='Search...'
