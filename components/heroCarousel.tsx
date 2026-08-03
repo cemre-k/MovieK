@@ -105,7 +105,7 @@ export function HeroCarousel() {
                           }
                           classNameExpanded='bg-zinc-950'
                         >
-                          <div className='flex flex-col gap-4 text-sm text-zinc-300'>
+                          <div className='flex flex-col gap-4 text-sm text-zinc-300 '>
                             <p>
                               {movie.overview ||
                                 "A cinematic experience to discover."}
@@ -117,9 +117,9 @@ export function HeroCarousel() {
                               <span className='rounded-full bg-white/10 px-2.5 py-1 text-[11px] uppercase tracking-[0.2em]'>
                                 TMDB Rating : {movie.vote_average}
                               </span>
-                              <MovieExtraDetails movieId={movie.id} />
                             </div>
                           </div>
+                          <MovieExtraDetails movieId={movie.id} />
                         </ExpandableCard>
                       </div>
                     </div>
