@@ -1,4 +1,5 @@
 import logo from "@/src/assets/cemrek_logo.png";
+import SearchBar from "./SearchBar";
 
 function Header() {
   return (
@@ -10,7 +11,7 @@ function Header() {
           alt=''
         />
       </div>
-      <div className='w-32'>search bar</div>
+      <SearchBar />
       <div>actions</div>
     </div>
   );
