@@ -48,11 +48,11 @@ function MovieExtraDetails({ movieId }: props) {
   const topCast = credits.cast.slice(0, 10);
 
   return (
-    <div className='flex w-full flex-col gap-8 p-5'>
+    <div className='flex w-full flex-col gap-8 '>
       {topCast.length > 0 ? (
         <Carousel
           opts={{ align: "start" }}
-          className='w-full'
+          className='w-full p-10'
         >
           <CarouselContent>
             {topCast.map((castMember) => (
@@ -76,8 +76,8 @@ function MovieExtraDetails({ movieId }: props) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className='left-0' />
+          <CarouselNext className='right-0' />
         </Carousel>
       ) : null}
 

@@ -1,6 +1,6 @@
 import { ExpandableCard } from "@/components/ui/expandable-card";
 import type { Movie } from "@/api/types";
-import { Button } from "@/components/ui/button";
+import MovieExtraDetails from "./MovieExtraDetails";
 
 type MovieCardProps = {
   movie: Movie;
@@ -16,8 +16,8 @@ function MovieCard({ movie }: MovieCardProps) {
     >
       <div className='flex flex-col gap-8 items-end justify-center'>
         {movie.overview}
-        <Button className='w-32'>Go to Movie page</Button>
       </div>
+      <MovieExtraDetails movieId={movie.id} />
     </ExpandableCard>
   );
 }
