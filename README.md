@@ -51,3 +51,9 @@ MovieK is a movie discovery app inspired by streaming platforms. The main goal o
 The project is still actively being worked on. Some parts may be incomplete, and some decisions may change as I continue learning and experimenting.
 
 The goal is less about building a perfect clone and more about understanding how these technologies work together.
+
+## Known Issues
+
+- If you are stuck on loading screens, your connection to TMDB might be the problem. The app gets its movie data from TMDB, so if TMDB doesn't respond, MovieK just sits there waiting.
+- Also, yes, I know the loading screens are ugly. They are currently doing the bare minimum: existing. I will replace them with proper skeletons and better loading states at some point.
+
