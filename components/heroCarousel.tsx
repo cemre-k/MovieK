@@ -9,7 +9,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useNowPlaying } from "@/hooks/useNowPlaying";
-import type { Movie } from "@/api/types";
 import MovieExtraDetails from "./MovieExtraDetails";
 
 function buildImageUrl(
@@ -21,11 +20,6 @@ function buildImageUrl(
   }
 
   return `https://image.tmdb.org/t/p/${size}/${path}`;
-}
-
-function formatMovieMeta(movie: Movie) {
-  const year = movie.release_date?.split("-")[0] ?? "New";
-  return `${year} • ⭐ ${movie.vote_average.toFixed(1)}/10`;
 }
 
 export function HeroCarousel() {
