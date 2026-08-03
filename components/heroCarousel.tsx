@@ -89,7 +89,7 @@ export function HeroCarousel() {
                           title={movie.title}
                           src={posterUrl}
                           srcExpanded={backdropUrl}
-                          description={formatMovieMeta(movie)}
+                          description={movie.release_date}
                           showPreview={false}
                           open={activeMovieId === movie.id}
                           onOpenChange={(open) =>

@@ -113,13 +113,23 @@ export function ExpandableCard({
 
               <div className='relative h-full'>
                 <div className='flex h-auto items-start justify-between p-8'>
-                  <div>
+                  <div className='flex flex-col'>
                     <motion.h3
                       layoutId={`title-${title}-${id}`}
                       className='mt-0.5 text-4xl font-semibold text-black dark:text-white'
                     >
                       {title}
                     </motion.h3>
+                    <motion.h2
+                      layoutId={`title-${description}-${id}`}
+                      className='mt-0.5 text-2xl font-extralight text-black/50 dark:text-white/40'
+                    >
+                      {new Intl.DateTimeFormat("en-GB", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      }).format(new Date(description))}
+                    </motion.h2>
                   </div>
 
                   <motion.button
@@ -212,12 +222,12 @@ export function ExpandableCard({
                 >
                   {title}
                 </motion.h3>
-                <motion.p
+                {/* <motion.p
                   layoutId={`description-${description}-${id}`}
                   className='text-sm font-medium text-zinc-500 md:text-left dark:text-zinc-400'
                 >
                   {description}
-                </motion.p>
+                </motion.p> */}
               </div>
             </div>
           </div>
