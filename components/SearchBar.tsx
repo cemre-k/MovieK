@@ -87,7 +87,7 @@ function SearchBar() {
         onSubmit={handleSearch}
         className='md:w-sm hidden md:block -translate-x-1/2'
       >
-        <InputGroup className='focus-within:!ring-primary/40 focus-within:!border-primary/40'>
+        <InputGroup className='focus-within:!ring-primary/40 focus-within:!border-primary/40 !rounded-xl'>
           <InputGroupInput
             value={searchVal}
             onChange={(e) => setSearchVal(e.target.value)}
