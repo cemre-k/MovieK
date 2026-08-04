@@ -1,17 +1,27 @@
 import { ExpandableCard } from "@/components/ui/expandable-card";
-import type { Movie } from "@/api/types";
+import type { Movie, SearchResult } from "@/api/types";
 import MovieExtraDetails from "./MovieExtraDetails";
 
 type MovieCardProps = {
-  movie: Movie;
+  movie: Movie | SearchResult;
 };
 
 function MovieCard({ movie }: MovieCardProps) {
+  if ("media_type" in movie && movie.media_type === "person") return;
+
+  const isTvResult = "media_type" in movie && movie.media_type === "tv";
+  const title =
+    "media_type" in movie && movie.media_type === "tv" ? movie.name : movie.title;
+  const description =
+    "media_type" in movie && movie.media_type === "tv"
+      ? movie.first_air_date
+      : movie.release_date;
+
   return (
     <ExpandableCard
-      title={movie.title}
+      title={title}
       src={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
-      description={movie.release_date}
+      description={description}
       srcExpanded={`https://image.tmdb.org/t/p/w780/${movie.backdrop_path}`}
     >
       <div className='flex flex-col gap-8 items-end justify-center'>
@@ -25,7 +35,7 @@ function MovieCard({ movie }: MovieCardProps) {
           TMDB Rating : {movie.vote_average}
         </span>
       </div>
-      <MovieExtraDetails movieId={movie.id} />
+      {!isTvResult ? <MovieExtraDetails movieId={movie.id} /> : null}
     </ExpandableCard>
   );
 }

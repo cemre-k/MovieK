@@ -77,7 +77,7 @@ export type MultiSearchResponse = {
     total_results: number;
 };
 
-export type SearchResult = MovieSearchResult | TvSearchResult;
+export type SearchResult = MovieSearchResult | TvSearchResult | PersonSearchResult;
 
 type BaseSearchResult = {
     adult: boolean;
@@ -107,3 +107,7 @@ export type TvSearchResult = BaseSearchResult & {
     first_air_date: string;
     origin_country: string[];
 };
+
+export type PersonSearchResult = BaseSearchResult & {
+    media_type:"person";
+}
