@@ -2,7 +2,6 @@ import { MovieCategoryCarousel } from "@/components/MovieCategoryCarousel";
 import { useEffect } from "react";
 import { usePopularMovies } from "@/hooks/usePopularMovies";
 import { useTopRated } from "@/hooks/useTopRated";
-import Header from "@/components/Header";
 import { HeroCarousel } from "@/components/heroCarousel";
 
 function MainPage() {
