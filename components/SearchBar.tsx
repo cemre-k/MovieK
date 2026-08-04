@@ -6,22 +6,12 @@ import {
 import { Search, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
-import { useSearch } from "@/hooks/useSearch";
+import { useNavigate } from "react-router";
 
 function SearchBar() {
   const [searchVal, setSearchVal] = useState("");
-  const [submittedQuery, setSubmittedQuery] = useState("");
-
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  const { data, isLoading, error } = useSearch(submittedQuery);
-
-  if (!isLoading && !data) {
-    console.log("no results");
-  }
-  if (error) {
-    console.log("error");
-  }
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (mobileOpen) {
@@ -36,8 +26,9 @@ function SearchBar() {
     e.preventDefault();
 
     if (!searchVal.trim()) return;
+    const params = new URLSearchParams({ q: searchVal }).toString();
 
-    setSubmittedQuery(searchVal);
+    navigate({ pathname: "/search", search: `?${params}` });
   }
 
   return (
