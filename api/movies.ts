@@ -1,5 +1,5 @@
 import { api } from "@/api/client";
-import type { PopularMoviesResponse , MovieDetails, MovieCredits } from "./types";
+import type { PopularMoviesResponse , MovieDetails, MovieCredits, MultiSearchResponse, MovieSearchResult, TvSearchResult, SearchResult } from "./types";
 
 export async function getPopularMovies(): Promise<PopularMoviesResponse> {
     const response = await api.get<PopularMoviesResponse>("/movie/popular");
@@ -28,4 +28,11 @@ export async function getMovieDetails(movie_id: number): Promise<MovieDetails> {
 export async function getMovieCredits(movieId: number):Promise<MovieCredits> {
   const { data } = await api.get<MovieCredits>(`/movie/${movieId}/credits`);
   return data;
+}
+
+export async function search(query:string):Promise<SearchResult[]> {
+  const { data } = await api.get<MultiSearchResponse>(`/search/multi` , {params:{
+    query,
+  }});
+  return data.results;
 }

@@ -69,3 +69,41 @@ export type MovieCredits = {
     cast: CastMember[];
     crew: CrewMember[];
 };
+
+export type MultiSearchResponse = {
+    page: number;
+    results: SearchResult[];
+    total_pages: number;
+    total_results: number;
+};
+
+export type SearchResult = MovieSearchResult | TvSearchResult;
+
+type BaseSearchResult = {
+    adult: boolean;
+    backdrop_path: string | null;
+    id: number;
+    original_language: string;
+    overview: string;
+    poster_path: string | null;
+    genre_ids: number[];
+    popularity: number;
+    vote_average: number;
+    vote_count: number;
+};
+
+export type MovieSearchResult = BaseSearchResult & {
+    media_type: "movie";
+    title: string;
+    original_title: string;
+    release_date: string;
+    video: boolean;
+};
+
+export type TvSearchResult = BaseSearchResult & {
+    media_type: "tv";
+    name: string;
+    original_name: string;
+    first_air_date: string;
+    origin_country: string[];
+};

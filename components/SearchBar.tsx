@@ -6,10 +6,22 @@ import {
 import { Search, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
+import { useSearch } from "@/hooks/useSearch";
 
 function SearchBar() {
   const [searchVal, setSearchVal] = useState("");
+  const [submittedQuery, setSubmittedQuery] = useState("");
+
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const { data, isLoading, error } = useSearch(submittedQuery);
+
+  if (!isLoading && !data) {
+    console.log("no results");
+  }
+  if (error) {
+    console.log("error");
+  }
 
   useEffect(() => {
     if (mobileOpen) {
@@ -22,9 +34,10 @@ function SearchBar() {
 
   function handleSearch(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(searchVal);
-    setSearchVal("");
-    setMobileOpen(false);
+
+    if (!searchVal.trim()) return;
+
+    setSubmittedQuery(searchVal);
   }
 
   return (
@@ -57,7 +70,7 @@ function SearchBar() {
                   id='mobile-search-input'
                   value={searchVal}
                   onChange={(e) => setSearchVal(e.target.value)}
-                  placeholder='Search...'
+                  placeholder='Search'
                 />
                 <InputGroupAddon align={"inline-end"}>
                   <Button
@@ -91,7 +104,7 @@ function SearchBar() {
           <InputGroupInput
             value={searchVal}
             onChange={(e) => setSearchVal(e.target.value)}
-            placeholder='Search...'
+            placeholder='Search'
           />
           <InputGroupAddon align={"inline-end"}>
             <Search />
