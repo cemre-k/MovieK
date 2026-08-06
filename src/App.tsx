@@ -4,7 +4,10 @@ import MainPage from "./pages/MainPage";
 import Layout from "./pages/Layout";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { useEffect } from "react";
-import SignUpPage from "./pages/SignUpPage";
+import SignUpPage from "./pages/authPages/SignUpPage";
+import LoginPage from "./pages/authPages/LoginPage";
+import ForgotPasswordPage from "./pages/authPages/ForgotPasswordPage";
+import UpdatePasswordPage from "./pages/authPages/UpdatePasswordPage";
 
 function App() {
   useEffect(() => {
@@ -23,8 +26,20 @@ function App() {
           element={<SearchResultsPage />}
         />
         <Route
-          path='/signup'
+          path='/sign-up'
           element={<SignUpPage />}
+        />
+        <Route
+          path='/login'
+          element={<LoginPage />}
+        />
+        <Route
+          path='/forgot-password'
+          element={<ForgotPasswordPage />}
+        />
+        <Route
+          path='/update-password'
+          element={<UpdatePasswordPage />}
         />
       </Route>
     </Routes>

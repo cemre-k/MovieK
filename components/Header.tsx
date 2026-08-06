@@ -1,6 +1,7 @@
 import logo from "@/src/assets/cemrek_logo.png";
 import SearchBar from "./SearchBar";
 import { useNavigate } from "react-router";
+import { Button } from "./ui/button";
 
 function Header() {
   const navigate = useNavigate();
@@ -16,7 +17,9 @@ function Header() {
         />
       </div>
       <SearchBar />
-      <div>actions</div>
+      <div>
+        <Button onClick={() => navigate("/sign-up")}>Sign Up</Button>
+      </div>
     </div>
   );
 }
