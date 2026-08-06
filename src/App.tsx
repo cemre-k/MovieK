@@ -4,6 +4,7 @@ import MainPage from "./pages/MainPage";
 import Layout from "./pages/Layout";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { useEffect } from "react";
+import { SignUpForm } from "@/components/SignUpForm";
 
 function App() {
   useEffect(() => {
@@ -20,6 +21,10 @@ function App() {
         <Route
           path='/search'
           element={<SearchResultsPage />}
+        />
+        <Route
+          path='/signup'
+          element={<SignUpForm />}
         />
       </Route>
     </Routes>

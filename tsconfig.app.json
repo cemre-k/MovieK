@@ -27,5 +27,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "components", "lib","api" , "hooks"]
+  "include": ["src", "components", "lib","api" , "hooks" , "utils" ,"lib"]
 }
