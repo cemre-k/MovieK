@@ -4,7 +4,7 @@ import MainPage from "./pages/MainPage";
 import Layout from "./pages/Layout";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import { useEffect } from "react";
-import { SignUpForm } from "@/components/SignUpForm";
+import SignUpPage from "./pages/SignUpPage";
 
 function App() {
   useEffect(() => {
@@ -24,7 +24,7 @@ function App() {
         />
         <Route
           path='/signup'
-          element={<SignUpForm />}
+          element={<SignUpPage />}
         />
       </Route>
     </Routes>
