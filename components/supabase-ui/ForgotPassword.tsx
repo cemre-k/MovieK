@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
-import { createClient } from "@/lib/client";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,9 +21,9 @@ export function ForgotPasswordForm({
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { supabase } = useAuth();
 
   const handleForgotPassword = async (e: React.FormEvent) => {
-    const supabase = createClient();
     e.preventDefault();
     setIsLoading(true);
     setError(null);
