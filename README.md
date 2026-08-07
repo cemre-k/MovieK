@@ -57,3 +57,11 @@ The goal is less about building a perfect clone and more about understanding how
 - If you are stuck on loading screens, your connection to TMDB might be the problem. The app gets its movie data from TMDB, so if TMDB doesn't respond, MovieK just sits there waiting.
 - Also, yes, I know the loading screens are ugly. They are currently doing the bare minimum: existing. I will replace them with proper skeletons and better loading states at some point.
 
+## Screenshots
+
+If TMDB is unavailable in your region or the API is temporarily unreachable, here are some screenshots of the application:
+
+
+<img width="1920" height="1522" alt="httpsmovie-k-lime vercel app" src="https://github.com/user-attachments/assets/8086f664-e683-47f2-8b7c-a7caf2f3bc7f" /> 
+
+<img width="1920" height="919" alt="Screenshot 2026-08-07 at 17-06-57 temedebe" src="https://github.com/user-attachments/assets/957f7573-eb10-4a34-8f92-53d37f8cf2e9" />
