@@ -21,7 +21,14 @@ function Header() {
       <SearchBar />
       <div>
         {user ? (
-          <Button onClick={() => signOut()}>Sign Out</Button>
+          <Button
+            onClick={() => {
+              signOut();
+              navigate("/");
+            }}
+          >
+            Sign Out
+          </Button>
         ) : (
           <Button onClick={() => navigate("/sign-up")}>Sign Up</Button>
         )}
