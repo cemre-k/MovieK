@@ -3,6 +3,7 @@ import SearchBar from "./SearchBar";
 import { useNavigate } from "react-router";
 import { Button } from "./ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import { CurrentUserAvatar } from "./current-user-avatar";
 
 function Header() {
   const navigate = useNavigate();
@@ -21,7 +22,11 @@ function Header() {
       <SearchBar />
       <div>
         {user ? (
-          <Button onClick={() => signOut()}>Sign Out</Button>
+          <div className='flex gap-12'>
+            <CurrentUserAvatar />
+            <Button onClick={() => signOut()}>Sign Out</Button>
+            <Button> Settings</Button>
+          </div>
         ) : (
           <Button onClick={() => navigate("/sign-up")}>Sign Up</Button>
         )}
