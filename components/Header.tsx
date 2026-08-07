@@ -25,7 +25,10 @@ function Header() {
           <div className='flex gap-12'>
             <CurrentUserAvatar />
             <Button onClick={() => signOut()}>Sign Out</Button>
-            <Button> Settings</Button>
+            <Button onClick={() => navigate("/update-profile")}>
+              {" "}
+              Settings
+            </Button>
           </div>
         ) : (
           <Button onClick={() => navigate("/sign-up")}>Sign Up</Button>
