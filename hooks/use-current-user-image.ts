@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { createClient } from '@/lib/client'
+import { supabase } from '@/utils/supabase'
 
 export const useCurrentUserImage = () => {
   const [image, setImage] = useState<string | null>(null)
@@ -12,7 +13,12 @@ export const useCurrentUserImage = () => {
         console.error(error)
       }
 
-      setImage(data.session?.user.user_metadata.avatar_url ?? null)
+      const { data:imgData } = supabase
+      .storage
+      .from('profile_pictures')
+      .getPublicUrl(data.session?.user.user_metadata.avatar_url)
+
+      setImage(imgData.publicUrl)
     }
     fetchUserImage()
   }, [])
