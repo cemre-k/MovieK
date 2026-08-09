@@ -1,27 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
-import { createClient } from '@/lib/client'
-import { supabase } from '@/utils/supabase'
+import { supabase } from "@/utils/supabase";
+import { useAuth } from "./useAuth";
 
 export const useCurrentUserImage = () => {
-  const [image, setImage] = useState<string | null>(null)
+  const [image, setImage] = useState<string | null>(null);
+  const { user } = useAuth();
 
   useEffect(() => {
-    const fetchUserImage = async () => {
-      const { data, error } = await createClient().auth.getSession()
-      if (error) {
-        console.error(error)
+    const fetchUserImage = () => {
+      if (user != null) {
+        const { data: imgData } = supabase.storage
+          .from("profile_pictures")
+          .getPublicUrl(user.user_metadata.avatar_url);
+
+        setImage(imgData.publicUrl);
       }
+    };
+    fetchUserImage();
+  }, [user]);
 
-      const { data:imgData } = supabase
-      .storage
-      .from('profile_pictures')
-      .getPublicUrl(data.session?.user.user_metadata.avatar_url)
-
-      setImage(imgData.publicUrl)
-    }
-    fetchUserImage()
-  }, [])
-
-  return image
-}
+  return image;
+};
