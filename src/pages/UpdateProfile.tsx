@@ -134,12 +134,12 @@ function UpdateProfile() {
         throw error;
       }
 
-      setMessage("Profil bilgileri başarıyla güncellendi.");
+      setMessage("Profile information updated successfully.");
     } catch (error: unknown) {
       setMessage(
         error instanceof Error
           ? error.message
-          : "Profil güncellenirken bir hata oluştu.",
+          : "An error occurred while updating the profile.",
       );
     } finally {
       setIsLoading(false);
@@ -157,14 +157,12 @@ function UpdateProfile() {
 
   return (
     <div className='mt-16 flex flex-1 items-center justify-center px-4 py-8'>
-      <Card className='w-full max-w-3xl  bg-background/90 shadow-sm'>
+      <Card className='w-full max-w-3xl bg-background/90 shadow-sm'>
         <CardHeader>
-          <CardTitle className='text-2xl'>
-            Profil bilgilerini güncelle
-          </CardTitle>
+          <CardTitle className='text-2xl'>Update Profile Information</CardTitle>
           <CardDescription>
-            İsim, soyisim, kullanıcı adı, e-posta, profil fotoğrafı ve doğum
-            tarihini güncelleyebilirsiniz.
+            You can update your first name, last name, username, email, profile
+            photo, and birth date.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -178,23 +176,21 @@ function UpdateProfile() {
                   {formData.profilePhotoUrl ? (
                     <AvatarImage
                       src={formData.profilePhotoUrl}
-                      alt={formData.firstName || "Profil fotoğrafı"}
+                      alt={formData.firstName || "Profile photo"}
                     />
                   ) : null}
                   <AvatarFallback>{initials || "U"}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className='font-medium'>Profil fotoğrafı</p>
+                  <p className='font-medium'>Profile photo</p>
                   <p className='text-xs text-muted-foreground'>
-                    Fotoğraf URL&apos;sini ekleyip önizleyebilirsiniz.
+                    You can add and preview a photo URL.
                   </p>
                 </div>
               </div>
 
               <div className='w-full sm:max-w-sm gap-2 flex-col flex'>
-                <Label htmlFor='profilePhotoUrl'>
-                  Profil fotoğrafını güncelle{" "}
-                </Label>
+                <Label htmlFor='profilePic'>Update profile photo</Label>
                 <Input
                   id='profilePic'
                   type='file'
@@ -206,10 +202,10 @@ function UpdateProfile() {
 
             <div className='grid gap-4 md:grid-cols-2'>
               <div className='grid gap-2'>
-                <Label htmlFor='firstName'>İsim</Label>
+                <Label htmlFor='firstName'>First Name</Label>
                 <Input
                   id='firstName'
-                  placeholder='İsim'
+                  placeholder='First Name'
                   value={formData.firstName}
                   onChange={handleChange("firstName")}
                   required
@@ -217,10 +213,10 @@ function UpdateProfile() {
               </div>
 
               <div className='grid gap-2'>
-                <Label htmlFor='lastName'>Soyisim</Label>
+                <Label htmlFor='lastName'>Last Name</Label>
                 <Input
                   id='lastName'
-                  placeholder='Soyisim'
+                  placeholder='Last Name'
                   value={formData.lastName}
                   onChange={handleChange("lastName")}
                   required
@@ -228,10 +224,10 @@ function UpdateProfile() {
               </div>
 
               <div className='grid gap-2'>
-                <Label htmlFor='username'>Kullanıcı adı</Label>
+                <Label htmlFor='username'>Username</Label>
                 <Input
                   id='username'
-                  placeholder='kullaniciadi'
+                  placeholder='username'
                   value={formData.username}
                   onChange={handleChange("username")}
                   required
@@ -239,11 +235,11 @@ function UpdateProfile() {
               </div>
 
               <div className='grid gap-2'>
-                <Label htmlFor='email'>E-posta</Label>
+                <Label htmlFor='email'>Email</Label>
                 <Input
                   id='email'
                   type='email'
-                  placeholder='ornek@mail.com'
+                  placeholder='example@mail.com'
                   value={formData.email}
                   onChange={handleChange("email")}
                   required
@@ -251,7 +247,7 @@ function UpdateProfile() {
               </div>
 
               <div className='grid gap-2 md:col-span-2'>
-                <Label htmlFor='birthDate'>Doğum tarihi</Label>
+                <Label htmlFor='birthDate'>Birth Date</Label>
                 <Input
                   id='birthDate'
                   type='date'
@@ -264,7 +260,7 @@ function UpdateProfile() {
 
             {message ? (
               <p
-                className={`text-sm ${message.includes("başarıyla") ? "text-emerald-500" : "text-red-500"}`}
+                className={`text-sm ${message.includes("successfully") ? "text-emerald-500" : "text-red-500"}`}
               >
                 {message}
               </p>
@@ -275,7 +271,7 @@ function UpdateProfile() {
                 type='submit'
                 disabled={isLoading}
               >
-                {isLoading ? "Kaydediliyor..." : "Kaydet"}
+                {isLoading ? "Saving..." : "Save"}
               </Button>
             </div>
           </form>
