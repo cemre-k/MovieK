@@ -9,6 +9,7 @@ import LoginPage from "./pages/authPages/LoginPage";
 import ForgotPasswordPage from "./pages/authPages/ForgotPasswordPage";
 import UpdatePasswordPage from "./pages/authPages/UpdatePasswordPage";
 import UpdateProfile from "@/src/pages/UpdateProfile";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 function App() {
   useEffect(() => {
@@ -17,6 +18,18 @@ function App() {
 
   return (
     <Routes>
+      {/* ================= PROTECTED ROUTES ================= */}
+      <Route element={<ProtectedRoute />}>
+        <Route
+          path='/update-password'
+          element={<UpdatePasswordPage />}
+        />
+        <Route
+          path='/update-profile'
+          element={<UpdateProfile />}
+        />
+      </Route>
+      {/* ================= PROTECTED ROUTES ================= */}
       <Route element={<Layout />}>
         <Route
           index
@@ -37,14 +50,6 @@ function App() {
         <Route
           path='/forgot-password'
           element={<ForgotPasswordPage />}
-        />
-        <Route
-          path='/update-password'
-          element={<UpdatePasswordPage />}
-        />
-        <Route
-          path='/update-profile'
-          element={<UpdateProfile />}
         />
       </Route>
     </Routes>

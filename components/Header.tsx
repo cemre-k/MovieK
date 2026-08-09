@@ -1,13 +1,13 @@
 import logo from "@/src/assets/cemrek_logo.png";
 import SearchBar from "./SearchBar";
-import { useNavigate } from "react-router";
 import { Button } from "./ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import { CurrentUserAvatar } from "./current-user-avatar";
+import ProfileDropdown from "./ProfileDropdown";
+import { useNavigate } from "react-router";
 
 function Header() {
+  const { user } = useAuth();
   const navigate = useNavigate();
-  const { user, signOut } = useAuth();
 
   return (
     <div className='absolute top-0 left-0 border-b border-border shadow-shadow w-full h-16 flex justify-between items-center md:px-24 px-3'>
@@ -22,16 +22,14 @@ function Header() {
       <SearchBar />
       <div>
         {user ? (
-          <div className='flex gap-12'>
-            <CurrentUserAvatar />
-            <Button onClick={() => signOut()}>Sign Out</Button>
-            <Button onClick={() => navigate("/update-profile")}>
-              {" "}
-              Settings
-            </Button>
-          </div>
+          <ProfileDropdown />
         ) : (
-          <Button onClick={() => navigate("/sign-up")}>Sign Up</Button>
+          <Button
+            onClick={() => navigate("/login")}
+            className='px-5'
+          >
+            Login
+          </Button>
         )}
       </div>
     </div>
