@@ -40,17 +40,24 @@ function UpdateProfile() {
     }
 
     const metadata = (user.user_metadata ?? {}) as Record<string, unknown>;
+    console.log("metadata", metadata);
     const fullName =
       typeof metadata.full_name === "string" ? metadata.full_name : "";
     const nameParts = fullName.trim().split(/\s+/).filter(Boolean);
+    const avatarPath =
+      typeof metadata.avatar_url === "string" ? metadata.avatar_url : "";
 
+    const { data } = supabase.storage
+      .from("profile_pictures")
+      .getPublicUrl(avatarPath);
+
+    const avatarUrl = data.publicUrl;
     return {
       firstName: nameParts[0] ?? "",
       lastName: nameParts.slice(1).join(" ") ?? "",
       username: typeof metadata.username === "string" ? metadata.username : "",
       email: user.email ?? "",
-      profilePhotoUrl:
-        typeof metadata.avatar_url === "string" ? metadata.avatar_url : "",
+      profilePhotoUrl: avatarUrl,
       birthDate:
         typeof metadata.birth_date === "string" ? metadata.birth_date : "",
     };
@@ -61,6 +68,12 @@ function UpdateProfile() {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+
+  const handlePictureSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedImg = e.target.files?.[0] ?? null;
+    setFile(selectedImg);
+  };
 
   const handleChange =
     (field: keyof ProfileFormState) =>
@@ -68,12 +81,41 @@ function UpdateProfile() {
       setFormData((prev) => ({ ...prev, [field]: event.target.value }));
     };
 
+  const uploadProfilePicture = async (
+    file: File,
+    userId: string,
+  ): Promise<string | undefined> => {
+    const extension = file.name.split(".").pop();
+    const fileName = `${crypto.randomUUID()}.${extension}`;
+    const filePath = `${userId}/${fileName}`;
+
+    const { data, error } = await supabase.storage
+      .from("profile_pictures")
+      .upload(filePath, file);
+
+    if (error) {
+      console.error("Upload failed:", error);
+      return;
+    }
+
+    console.log("Uploaded:", data.path);
+    return data.path;
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
     setMessage(null);
 
+    let imgPath = formData.profilePhotoUrl;
+
     try {
+      if (file && user) {
+        const path = await uploadProfilePicture(file, user.id);
+        if (path) {
+          imgPath = path;
+        }
+      }
       const fullName = [formData.firstName.trim(), formData.lastName.trim()]
         .filter(Boolean)
         .join(" ");
@@ -83,7 +125,7 @@ function UpdateProfile() {
         data: {
           full_name: fullName,
           username: formData.username.trim(),
-          avatar_url: formData.profilePhotoUrl.trim(),
+          avatar_url: imgPath,
           birth_date: formData.birthDate,
         },
       });
@@ -110,6 +152,8 @@ function UpdateProfile() {
     .trim()
     .slice(0, 2)
     .toUpperCase();
+
+  console.log(formData.profilePhotoUrl);
 
   return (
     <div className='mt-16 flex flex-1 items-center justify-center px-4 py-8'>
@@ -147,14 +191,15 @@ function UpdateProfile() {
                 </div>
               </div>
 
-              <div className='w-full sm:max-w-sm'>
-                <Label htmlFor='profilePhotoUrl'>Profil fotoğrafı URL</Label>
+              <div className='w-full sm:max-w-sm gap-2 flex-col flex'>
+                <Label htmlFor='profilePhotoUrl'>
+                  Profil fotoğrafını güncelle{" "}
+                </Label>
                 <Input
-                  id='profilePhotoUrl'
-                  type='url'
-                  placeholder='https://example.com/avatar.jpg'
-                  value={formData.profilePhotoUrl}
-                  onChange={handleChange("profilePhotoUrl")}
+                  id='profilePic'
+                  type='file'
+                  accept='image/*'
+                  onChange={handlePictureSelect}
                 />
               </div>
             </div>
