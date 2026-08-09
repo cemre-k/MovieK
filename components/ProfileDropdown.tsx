@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-import { Button } from "./ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { CurrentUserAvatar } from "./current-user-avatar";
 
