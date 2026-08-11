@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/utils/supabase";
-import type { Movie } from "@/api/types";
+import type { Movie, MovieSearchResult, TvSearchResult } from "@/api/types";
 import type { ReactNode } from "react";
 import type { LikeContextVal } from "./like-context";
 import { LikeContext } from "./like-context";
@@ -19,19 +19,30 @@ function LikeContextProvider({ children }: { children: ReactNode }) {
         console.log("error", error);
         return;
       }
-      console.log("likes:", likes);
+      console.log("likes", likes);
+      const movieIds = new Set(likes.map((like) => like.movie_id));
+
+      setLikedMovieIds(movieIds);
+      setIsLoading(false);
     };
     getLiked();
   }, []);
 
-  const likeMovie = async (movie: Movie): Promise<boolean> => {
+  const likeMovie = async (
+    movie: Movie | MovieSearchResult | TvSearchResult,
+  ): Promise<boolean> => {
+    const title =
+      "media_type" in movie && movie.media_type === "tv"
+        ? movie.name
+        : movie.title;
+
     const { error } = await supabase.rpc("like_movie", {
       p_movie_backdrop_path: movie.backdrop_path,
       p_movie_id: movie.id,
       p_movie_overview: movie.overview,
       p_movie_popularity: movie.popularity,
       p_movie_poster_path: movie.poster_path,
-      p_movie_title: movie.title,
+      p_movie_title: title,
       p_movie_vote_avg: movie.vote_average,
       p_movie_vote_count: movie.vote_count,
     });
@@ -40,12 +51,6 @@ function LikeContextProvider({ children }: { children: ReactNode }) {
       console.error("Failed to like movie:", error);
       return false;
     }
-
-    setLikedMovieIds((previous) => {
-      const next = new Set(previous);
-      next.add(movie.id);
-      return next;
-    });
 
     return true;
   };

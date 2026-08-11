@@ -88,12 +88,15 @@ export function ExpandableCard({
     e.preventDefault();
     e.stopPropagation();
     if (isLiked) {
-      const succes = unlikeMovie(movie.id);
-      if (succes) {
+      const success = await unlikeMovie(movie.id);
+      if (success) {
         setLiked(false);
       }
     } else {
-      const success = likeMovie();
+      const success = await likeMovie(movie);
+      if (success) {
+        setLiked(true);
+      }
     }
   };
 
