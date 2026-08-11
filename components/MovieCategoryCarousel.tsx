@@ -25,9 +25,8 @@ export function MovieCategoryCarousel({
   title,
   useMovies,
 }: MovieCategoryCarouselProps) {
-  const { data, isLoading } = useMovies();
+  const { data, isLoading, error } = useMovies();
 
-  const error = 1;
   // TODO: replace with real loading/error components
   if (isLoading) {
     return <div>Loading...</div>;
