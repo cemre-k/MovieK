@@ -7,6 +7,7 @@ import { Button } from "./button";
 import { ThumbsUp } from "lucide-react";
 
 interface ExpandableCardProps {
+  handleLike: () => Promise<boolean>;
   title: string;
   src: string;
   srcExpanded: string;
@@ -22,6 +23,7 @@ interface ExpandableCardProps {
 }
 
 export function ExpandableCard({
+  handleLike,
   title,
   src,
   srcExpanded,
@@ -77,10 +79,14 @@ export function ExpandableCard({
   }, []);
   const [isLiked, setLiked] = React.useState(false);
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setLiked(!isLiked);
+    const success = await handleLike();
+
+    if (success) {
+      setLiked(!isLiked);
+    }
   };
 
   const expandedContent = (

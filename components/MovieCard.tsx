@@ -23,7 +23,7 @@ function MovieCard({ movie }: MovieCardProps) {
       : movie.release_date;
 
   const handleLike = async () => {
-    if (isTvResult) return;
+    if (isTvResult) return false;
 
     const { data, error } = await supabase.rpc("like_movie", {
       p_movie_backdrop_path: movie.backdrop_path,
@@ -38,10 +38,10 @@ function MovieCard({ movie }: MovieCardProps) {
 
     if (error) {
       console.error("Failed to like movie:", error);
-      return;
+      return false;
     }
-
-    console.log("Movie liked:", data);
+    console.log(data);
+    return true;
   };
 
   return (
