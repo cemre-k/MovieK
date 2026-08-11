@@ -3,6 +3,8 @@ import { AnimatePresence, motion } from "motion/react";
 import { createPortal } from "react-dom";
 
 import { cn } from "@/lib/utils";
+import { Button } from "./button";
+import { ThumbsUp } from "lucide-react";
 
 interface ExpandableCardProps {
   title: string;
@@ -73,6 +75,13 @@ export function ExpandableCard({
       document.removeEventListener("touchstart", handleClickOutside);
     };
   }, []);
+  const [isLiked, setLiked] = React.useState(false);
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setLiked(!isLiked);
+  };
 
   const expandedContent = (
     <>
@@ -206,13 +215,22 @@ export function ExpandableCard({
             className,
           )}
         >
-          <div className='flex flex-col gap-4'>
+          <div className='flex flex-col gap-4 relative'>
             <motion.div layoutId={`image-${title}-${id}`}>
               <img
                 src={src}
                 alt={title}
                 className='md:h-64 md:w-96 h-48 w-96 rounded-lg object-cover object-[50%_15%]'
               />
+              <Button
+                className='absolute w-12 h-12 rounded-full text-4xl top-2 right-2'
+                onClick={handleClick}
+              >
+                <ThumbsUp
+                  fill={isLiked ? "white" : "none"}
+                  className='size-6'
+                />
+              </Button>
             </motion.div>
             <div className='flex items-center justify-between'>
               <div className='flex flex-col'>
