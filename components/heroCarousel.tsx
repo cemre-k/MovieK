@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/carousel";
 import { useNowPlaying } from "@/hooks/useNowPlaying";
 import MovieExtraDetails from "./MovieExtraDetails";
+import { MovieError } from "./MovieError";
 
 function buildImageUrl(
   path: string | null | undefined,
@@ -35,7 +36,7 @@ export function HeroCarousel() {
   }
 
   if (error || !data?.results?.length) {
-    return null;
+    return <MovieError />;
   }
 
   const featuredMovies = data.results.slice(0, 5);

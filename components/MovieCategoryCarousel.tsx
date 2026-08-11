@@ -8,6 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { MovieError } from "@/components/MovieError";
 
 type MovieCategoryCarouselProps = {
   title: string;
@@ -24,19 +25,20 @@ export function MovieCategoryCarousel({
   title,
   useMovies,
 }: MovieCategoryCarouselProps) {
-  const { data, isLoading, error } = useMovies();
+  const { data, isLoading } = useMovies();
 
+  const error = 1;
   // TODO: replace with real loading/error components
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>There has been an error.</div>;
+    return <MovieError />;
   }
 
   if (!data) {
-    return null;
+    return <MovieError />;
   }
   const movies = data.results;
 
