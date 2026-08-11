@@ -5,9 +5,11 @@ import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
 import { ThumbsUp } from "lucide-react";
+import { useLike } from "@/hooks/useLike";
+import type { Movie, MovieSearchResult, TvSearchResult } from "@/api/types";
 
 interface ExpandableCardProps {
-  handleLike: () => Promise<boolean>;
+  movie: Movie | MovieSearchResult | TvSearchResult;
   title: string;
   src: string;
   srcExpanded: string;
@@ -23,7 +25,7 @@ interface ExpandableCardProps {
 }
 
 export function ExpandableCard({
-  handleLike,
+  movie,
   title,
   src,
   srcExpanded,
@@ -77,15 +79,21 @@ export function ExpandableCard({
       document.removeEventListener("touchstart", handleClickOutside);
     };
   }, []);
-  const [isLiked, setLiked] = React.useState(false);
+
+  const { likeMovie, unlikeMovie, likedMovieIds } = useLike();
+
+  const [isLiked, setLiked] = React.useState(likedMovieIds.has(movie.id));
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const success = await handleLike();
-
-    if (success) {
-      setLiked(!isLiked);
+    if (isLiked) {
+      const succes = unlikeMovie(movie.id);
+      if (succes) {
+        setLiked(false);
+      }
+    } else {
+      const success = likeMovie();
     }
   };
 

@@ -6,6 +6,7 @@ import App from "./App.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProvider } from "@/context/AuthContext";
+import LikeContextProvider from "@/context/LikeContext.tsx";
 
 const queryClient = new QueryClient();
 createRoot(document.getElementById("root")!).render(
@@ -13,9 +14,11 @@ createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       {import.meta.env.DEV && <ReactQueryDevtools />}
       <AuthProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <LikeContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </LikeContextProvider>
       </AuthProvider>
     </QueryClientProvider>
   </StrictMode>,

@@ -1,7 +1,6 @@
 import { ExpandableCard } from "@/components/ui/expandable-card";
 import type { Movie, SearchResult } from "@/api/types";
 import MovieExtraDetails from "./MovieExtraDetails";
-import { supabase } from "@/utils/supabase";
 
 type MovieCardProps = {
   movie: Movie | SearchResult;
@@ -22,31 +21,9 @@ function MovieCard({ movie }: MovieCardProps) {
       ? movie.first_air_date
       : movie.release_date;
 
-  const handleLike = async () => {
-    if (isTvResult) return false;
-
-    const { data, error } = await supabase.rpc("like_movie", {
-      p_movie_backdrop_path: movie.backdrop_path,
-      p_movie_id: movie.id,
-      p_movie_overview: movie.overview,
-      p_movie_popularity: movie.popularity,
-      p_movie_poster_path: movie.poster_path,
-      p_movie_title: title,
-      p_movie_vote_avg: movie.vote_average,
-      p_movie_vote_count: movie.vote_count,
-    });
-
-    if (error) {
-      console.error("Failed to like movie:", error);
-      return false;
-    }
-    console.log(data);
-    return true;
-  };
-
   return (
     <ExpandableCard
-      handleLike={handleLike}
+      movie={movie}
       title={title}
       src={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
       description={description}
