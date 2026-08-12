@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
-import { ThumbsUp } from "lucide-react";
+import { Film, ThumbsUp } from "lucide-react";
 import { useLike } from "@/hooks/useLike";
 import type { Movie, MovieSearchResult, TvSearchResult } from "@/api/types";
 import { useAuth } from "@/hooks/useAuth";
@@ -80,6 +80,7 @@ export function ExpandableCard({
       document.removeEventListener("touchstart", handleClickOutside);
     };
   }, []);
+
   const { user } = useAuth();
   const { likeMovie, unlikeMovie, likedMovieIds } = useLike();
 
@@ -88,6 +89,7 @@ export function ExpandableCard({
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+
     if (isLiked) {
       await unlikeMovie(movie.id);
     } else {
@@ -110,9 +112,7 @@ export function ExpandableCard({
 
       <AnimatePresence>
         {active && (
-          <div
-            className={cn("fixed inset-0 z-[100] grid place-items-center p-4")}
-          >
+          <div className='fixed inset-0 z-[100] grid place-items-center p-4'>
             <motion.div
               layoutId={`card-${title}-${id}`}
               ref={cardRef}
@@ -141,6 +141,7 @@ export function ExpandableCard({
                     >
                       {title}
                     </motion.h3>
+
                     {description && (
                       <motion.h2
                         layoutId={`title-${description}-${id}`}
@@ -229,16 +230,35 @@ export function ExpandableCard({
             className,
           )}
         >
-          <div className='flex flex-col gap-4 relative'>
-            <motion.div layoutId={`image-${title}-${id}`}>
+          <div className='relative flex w-full flex-col gap-4'>
+            <motion.div
+              layoutId={`image-${title}-${id}`}
+              className='relative aspect-[3/4] w-full'
+            >
+              {/* Placeholder */}
+              <div className='absolute inset-0 flex items-center justify-center rounded-lg bg-gray-300'>
+                <Film
+                  className='h-16 w-16 text-gray-500'
+                  strokeWidth={1.5}
+                />
+              </div>
+
+              {/* Actual image */}
               <img
                 src={src}
                 alt={title}
-                className='md:h-64 md:w-96 h-48 w-96 rounded-lg object-cover object-[50%_15%]'
+                className='relative h-full w-full rounded-lg object-cover object-[50%_15%] opacity-0'
+                onLoad={(event) => {
+                  event.currentTarget.style.opacity = "1";
+                }}
+                onError={(event) => {
+                  event.currentTarget.style.display = "none";
+                }}
               />
+
               {user && (
                 <Button
-                  className='absolute w-10 h-10 rounded-2xl top-2 right-2 bg-primary/80'
+                  className='absolute top-2 right-2 h-10 w-10 rounded-2xl bg-primary/80'
                   onClick={handleClick}
                 >
                   <ThumbsUp
@@ -249,20 +269,15 @@ export function ExpandableCard({
                 </Button>
               )}
             </motion.div>
+
             <div className='flex items-center justify-between'>
               <div className='flex flex-col'>
                 <motion.h3
                   layoutId={`title-${title}-${id}`}
-                  className='font-semibold text-black md:text-left dark:text-white mb-2'
+                  className='mb-2 font-semibold text-black md:text-left dark:text-white'
                 >
                   {title}
                 </motion.h3>
-                {/* <motion.p
-                  layoutId={`description-${description}-${id}`}
-                  className='text-sm font-medium text-zinc-500 md:text-left dark:text-zinc-400'
-                >
-                  {description}
-                </motion.p> */}
               </div>
             </div>
           </div>
