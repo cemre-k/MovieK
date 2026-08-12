@@ -8,10 +8,11 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
+import { User } from "lucide-react";
 
 function buildCastPhotoUrl(profilePath: string | null) {
   if (!profilePath) {
-    return "https://via.placeholder.com/154x231?text=No+Photo";
+    return "";
   }
 
   return `https://image.tmdb.org/t/p/w154${profilePath}`;
@@ -61,11 +62,25 @@ function MovieExtraDetails({ movieId }: props) {
                 className='basis-auto'
               >
                 <div className='flex w-28 flex-col items-center gap-2 text-center'>
-                  <img
-                    src={buildCastPhotoUrl(castMember.profile_path)}
-                    alt={castMember.name}
-                    className='h-36 w-28 rounded-lg object-cover'
-                  />
+                  <div className='relative h-36 w-28 overflow-hidden rounded-lg bg-gray-300'>
+                    <User
+                      className='absolute inset-0 m-auto h-20 w-20 text-gray-500'
+                      strokeWidth={1.5}
+                    />
+
+                    <img
+                      src={buildCastPhotoUrl(castMember.profile_path)}
+                      alt={castMember.name}
+                      className='relative h-full w-full rounded-lg object-cover'
+                      onLoad={(event) => {
+                        event.currentTarget.style.opacity = "1";
+                      }}
+                      onError={(event) => {
+                        event.currentTarget.style.display = "none";
+                      }}
+                      style={{ opacity: 0 }}
+                    />
+                  </div>
                   <p className='text-xs font-semibold text-white'>
                     {castMember.name}
                   </p>
