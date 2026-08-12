@@ -123,11 +123,26 @@ export function ExpandableCard({
               {...props}
             >
               <motion.div layoutId={`image-${title}-${id}`}>
-                <div className='relative before:absolute before:inset-x-0 before:bottom-[-1px] before:z-50 before:h-[70px] before:bg-gradient-to-t before:from-zinc-50 dark:before:from-zinc-950'>
+                <div className='relative h-80 w-full before:absolute before:inset-x-0 before:bottom-[-1px] before:z-50 before:h-[70px] before:bg-gradient-to-t before:from-zinc-50 dark:before:from-zinc-950'>
+                  {/* Placeholder */}
+                  <div className='absolute inset-0 flex items-center justify-center bg-gray-300'>
+                    <Film
+                      className='h-20 w-20 text-gray-500'
+                      strokeWidth={1.5}
+                    />
+                  </div>
+
+                  {/* Actual image */}
                   <img
                     src={srcExpanded}
                     alt={title}
-                    className='h-80 w-full object-cover object-top'
+                    className='relative h-full w-full object-cover object-top opacity-0'
+                    onLoad={(event) => {
+                      event.currentTarget.style.opacity = "1";
+                    }}
+                    onError={(event) => {
+                      event.currentTarget.style.display = "none";
+                    }}
                   />
                 </div>
               </motion.div>
