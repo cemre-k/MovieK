@@ -52,7 +52,14 @@ function MovieExtraDetails({ movieId }: props) {
     <div className='flex w-full flex-col gap-8 '>
       {topCast.length > 0 ? (
         <Carousel
-          opts={{ align: "start" }}
+          opts={{
+            align: "start",
+            watchDrag: (_emblaApi, event) => {
+              return !(
+                event.target instanceof HTMLElement && event.target.closest("p")
+              );
+            },
+          }}
           className='w-full p-10'
         >
           <CarouselContent>
@@ -81,7 +88,7 @@ function MovieExtraDetails({ movieId }: props) {
                       style={{ opacity: 0 }}
                     />
                   </div>
-                  <p className='text-xs font-semibold text-white'>
+                  <p className='select-text text-xs font-semibold text-white'>
                     {castMember.name}
                   </p>
                   <p className='text-[11px] text-zinc-400'>
