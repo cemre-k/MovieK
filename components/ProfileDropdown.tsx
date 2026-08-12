@@ -27,7 +27,9 @@ function ProfileDropdown() {
         <DropdownMenuContent>
           <DropdownMenuGroup>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate("/user")}>
+              Profile
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={() => navigate("/update-profile")}>
               {" "}
               Settings
