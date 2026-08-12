@@ -5,11 +5,14 @@ import type { ReactNode } from "react";
 import type { LikeContextVal } from "./like-context";
 import { LikeContext } from "./like-context";
 import { useAuth } from "@/hooks/useAuth";
+import { useQueryClient } from "@tanstack/react-query";
 
 function LikeContextProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
   const [likedMovieIds, setLikedMovieIds] = useState<Set<number>>(new Set());
   const [isLoading, setIsLoading] = useState(true);
+
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const getLiked = async () => {
@@ -66,6 +69,7 @@ function LikeContextProvider({ children }: { children: ReactNode }) {
     }
 
     setLikedMovieIds((previous) => new Set(previous).add(movie.id));
+    queryClient.invalidateQueries({ queryKey: ["likedMovies", user?.id] });
 
     return true;
   };
@@ -85,6 +89,7 @@ function LikeContextProvider({ children }: { children: ReactNode }) {
       next.delete(movieId);
       return next;
     });
+    queryClient.invalidateQueries({ queryKey: ["likedMovies", user?.id] });
 
     return true;
   };
