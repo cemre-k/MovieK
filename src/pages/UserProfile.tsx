@@ -15,6 +15,7 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { useLikedMovies } from "@/hooks/useLikedMovies";
 import { supabase } from "@/utils/supabase";
+import { capitalize } from "@/utils/utils";
 
 function calculateAge(birthDate: string): number | null {
   const date = new Date(birthDate);
@@ -99,7 +100,7 @@ function UserProfile() {
             </Avatar>
 
             <div>
-              <CardTitle className='text-2xl'>{fullName}</CardTitle>
+              <CardTitle className='text-2xl'>{capitalize(fullName)}</CardTitle>
               <CardDescription>
                 {user?.email ?? "No email provided"}
               </CardDescription>
