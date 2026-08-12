@@ -234,11 +234,12 @@ export function ExpandableCard({
                 className='md:h-64 md:w-96 h-48 w-96 rounded-lg object-cover object-[50%_15%]'
               />
               <Button
-                className='absolute w-12 h-12 rounded-full text-4xl top-2 right-2'
+                className='absolute w-10 h-10 rounded-2xl top-2 right-2 bg-primary/80'
                 onClick={handleClick}
               >
                 <ThumbsUp
-                  fill={isLiked ? "#ffffff75" : "none"}
+                  fill={isLiked ? "#ffffff90" : "none"}
+                  color={isLiked ? "white" : "#ffffffa0"}
                   className='size-6'
                 />
               </Button>
