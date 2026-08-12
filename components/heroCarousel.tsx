@@ -81,6 +81,7 @@ export function HeroCarousel() {
 
                       <div className='mt-6 flex flex-wrap gap-3  '>
                         <ExpandableCard
+                          movie={movie}
                           title={movie.title}
                           src={posterUrl}
                           srcExpanded={backdropUrl}

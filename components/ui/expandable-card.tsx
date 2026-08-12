@@ -81,6 +81,7 @@ export function ExpandableCard({
   }, []);
 
   const { likeMovie, unlikeMovie, likedMovieIds } = useLike();
+  console.log(likedMovieIds);
 
   const [isLiked, setLiked] = React.useState(likedMovieIds.has(movie.id));
 

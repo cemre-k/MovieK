@@ -7,6 +7,7 @@ type MovieCardProps = {
 };
 
 function MovieCard({ movie }: MovieCardProps) {
+  console.log("movie", movie);
   if ("media_type" in movie && movie.media_type === "person") return;
 
   const isTvResult = "media_type" in movie && movie.media_type === "tv";
