@@ -7,6 +7,7 @@ import { Button } from "./button";
 import { ThumbsUp } from "lucide-react";
 import { useLike } from "@/hooks/useLike";
 import type { Movie, MovieSearchResult, TvSearchResult } from "@/api/types";
+import { useAuth } from "@/hooks/useAuth";
 
 interface ExpandableCardProps {
   movie: Movie | MovieSearchResult | TvSearchResult;
@@ -79,7 +80,7 @@ export function ExpandableCard({
       document.removeEventListener("touchstart", handleClickOutside);
     };
   }, []);
-
+  const { user } = useAuth();
   const { likeMovie, unlikeMovie, likedMovieIds } = useLike();
 
   const isLiked = likedMovieIds.has(movie.id);
@@ -140,16 +141,18 @@ export function ExpandableCard({
                     >
                       {title}
                     </motion.h3>
-                    <motion.h2
-                      layoutId={`title-${description}-${id}`}
-                      className='mt-0.5 text-2xl font-extralight text-black/50 dark:text-white/40'
-                    >
-                      {new Intl.DateTimeFormat("en-GB", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                      }).format(new Date(description))}
-                    </motion.h2>
+                    {description && (
+                      <motion.h2
+                        layoutId={`title-${description}-${id}`}
+                        className='mt-0.5 text-2xl font-extralight text-black/50 dark:text-white/40'
+                      >
+                        {new Intl.DateTimeFormat("en-GB", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        }).format(new Date(description))}
+                      </motion.h2>
+                    )}
                   </div>
 
                   <motion.button
@@ -233,16 +236,18 @@ export function ExpandableCard({
                 alt={title}
                 className='md:h-64 md:w-96 h-48 w-96 rounded-lg object-cover object-[50%_15%]'
               />
-              <Button
-                className='absolute w-10 h-10 rounded-2xl top-2 right-2 bg-primary/80'
-                onClick={handleClick}
-              >
-                <ThumbsUp
-                  fill={isLiked ? "#ffffff90" : "none"}
-                  color={isLiked ? "white" : "#ffffffa0"}
-                  className='size-6'
-                />
-              </Button>
+              {user && (
+                <Button
+                  className='absolute w-10 h-10 rounded-2xl top-2 right-2 bg-primary/80'
+                  onClick={handleClick}
+                >
+                  <ThumbsUp
+                    fill={isLiked ? "#ffffff90" : "none"}
+                    color={isLiked ? "white" : "#ffffffa0"}
+                    className='size-6'
+                  />
+                </Button>
+              )}
             </motion.div>
             <div className='flex items-center justify-between'>
               <div className='flex flex-col'>
