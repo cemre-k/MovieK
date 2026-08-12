@@ -18,19 +18,19 @@ function App() {
 
   return (
     <Routes>
-      {/* ================= PROTECTED ROUTES ================= */}
-      <Route element={<ProtectedRoute />}>
-        <Route
-          path='/update-password'
-          element={<UpdatePasswordPage />}
-        />
-        <Route
-          path='/update-profile'
-          element={<UpdateProfile />}
-        />
-      </Route>
-      {/* ================= PROTECTED ROUTES ================= */}
       <Route element={<Layout />}>
+        {/* ================= PROTECTED ROUTES ================= */}
+        <Route element={<ProtectedRoute />}>
+          <Route
+            path='/update-password'
+            element={<UpdatePasswordPage />}
+          />
+          <Route
+            path='/update-profile'
+            element={<UpdateProfile />}
+          />
+        </Route>
+        {/* ================= PROTECTED ROUTES ================= */}
         <Route
           index
           element={<MainPage />}

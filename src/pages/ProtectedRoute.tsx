@@ -1,6 +1,5 @@
 import { Navigate, Outlet, useLocation } from "react-router";
 import { useAuth } from "@/hooks/useAuth";
-import Header from "@/components/Header";
 
 function ProtectedRoute() {
   const { user, isLoading } = useAuth();
@@ -22,8 +21,6 @@ function ProtectedRoute() {
 
   return (
     <div className='min-h-screen flex flex-col'>
-      <Header />
-
       <Outlet />
     </div>
   );
