@@ -10,6 +10,7 @@ import ForgotPasswordPage from "./pages/authPages/ForgotPasswordPage";
 import UpdatePasswordPage from "./pages/authPages/UpdatePasswordPage";
 import UpdateProfile from "@/src/pages/UpdateProfile";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   useEffect(() => {
