@@ -27,7 +27,7 @@ function MovieCard({ movie }: MovieCardProps) {
       title={title}
       src={`https://image.tmdb.org/t/p/w780/${movie.poster_path}`}
       description={description}
-      srcExpanded={`https://image.tmdb.org/t/p/w780/${movie.backdrop_path}`}
+      srcExpanded={`https://image.tmdb.org/t/p/w780/${movie.backdrop_path || movie.poster_path}`}
     >
       <div className='flex flex-col items-end justify-center gap-8'>
         {movie.overview}
