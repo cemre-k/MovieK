@@ -1,67 +1,74 @@
 # MovieK
 
-A Netflix-inspired movie browsing app I built because I had some free time and wanted to experiment with modern frontend technologies.
+A movie search website made with React.
 
-Honestly, I don't know where this project is going yet, but that's part of the fun.
+I wanted to practice working with APIs, React, TypeScript and a few other things.
 
-If you wanna check out what I do in my free time, the project is live here:
+Then I thought it would be nice to have accounts.
+Then I thought it would be nice to like movies.
+Then I had a database.
+I don't know why I do this, but here we are.
 
-- https://movie-k-lime.vercel.app/
+## Live
 
-> 🚧 This project is still a work in progress. Features, design choices, and technologies may change as I continue experimenting and improving it.
+**[MovieK](https://movie-k-lime.vercel.app/)**
 
-## About
+## What can you do?
 
-MovieK is a movie discovery app inspired by streaming platforms. The main goal of this project is to practice building a modern React application while exploring things like API integration, state management, animations, and reusable UI components.
+* Search for movies
+* Browse popular and upcoming movies
+* View movie details
+* Create an account and log in
+* Like and unlike movies
+* Keep your liked movies between sessions
+* Use the app on different screen sizes
 
-## Features
+## Tech Stack
 
-- Browse popular movies
-- Search and explore movie data
-- Responsive layouts for desktop and mobile
-- Animated UI interactions
-- Movie carousels
-- Modern component-based architecture
+* React
+* TypeScript
+* Vite
+* Tailwind CSS
+* TanStack Query
+* Axios
+* Supabase
+* shadcn/ui
+* Base UI
+* Embla Carousel
+* Motion
+* Lucide React
 
-## Technologies Used
+## Supabase
 
-- React
-- TypeScript
-- Vite
-- Tailwind CSS
-- TanStack Query
-- Axios
-- Embla Carousel
-- Motion
-- Lucide React
-- shadcn/ui
-- Base UI
+I added Supabase when I wanted users to be able to have something of their own in the app.
 
-## Things I Experimented With
+It handles authentication and stores the movies a user likes. I also set up Row Level Security (RLS) policies so users can only manage their own likes.</br>
+*(idk why it's important to write this little technical detail but ChatGPT insisted I write this here and I couldn't let it down. At the end of the day, it's my best friend :'(...)*
 
-- Managing server state with TanStack Query
-- Building reusable components with React
-- Creating responsive designs with Tailwind CSS
-- Working with external APIs
-- Handling animations and transitions
-- Exploring modern React tooling
+## What I wanted to practice
 
-## Current Status
+The main reason I built MovieK was to get more comfortable building a real frontend application rather than just following tutorials.
 
-The project is still actively being worked on. Some parts may be incomplete, and some decisions may change as I continue learning and experimenting.
+Some of the things I worked with:
 
-The goal is less about building a perfect clone and more about understanding how these technologies work together.
-
-## Known Issues
-
-- If you are stuck on loading screens, your connection to TMDB might be the problem. The app gets its movie data from TMDB, so if TMDB doesn't respond, MovieK just sits there waiting.
-- Also, yes, I know the loading screens are ugly. They are currently doing the bare minimum: existing. I will replace them with proper skeletons and better loading states at some point.
+* React component architecture
+* TypeScript
+* API requests and error handling
+* TanStack Query and server state
+* Custom hooks
+* Authentication and user-specific data
+* Supabase and PostgreSQL
+* Responsive UI
+* Loading and error states
+* Animations and UI components
 
 ## Screenshots
-
-If TMDB is unavailable in your region or the API is temporarily unreachable, here are some screenshots of the application:
-
-
 <img width="1920" height="1522" alt="httpsmovie-k-lime vercel app" src="https://github.com/user-attachments/assets/8086f664-e683-47f2-8b7c-a7caf2f3bc7f" /> 
 
 <img width="1920" height="919" alt="Screenshot 2026-08-07 at 17-06-57 temedebe" src="https://github.com/user-attachments/assets/957f7573-eb10-4a34-8f92-53d37f8cf2e9" />
+
+## Credits
+
+Movie data and images are provided by [The Movie Database (TMDB)](https://www.themoviedb.org/).
+
+This product uses the TMDB API but is not endorsed or certified by TMDB.
