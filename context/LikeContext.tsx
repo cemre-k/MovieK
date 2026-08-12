@@ -52,6 +52,8 @@ function LikeContextProvider({ children }: { children: ReactNode }) {
       return false;
     }
 
+    setLikedMovieIds((previous) => new Set(previous).add(movie.id));
+
     return true;
   };
 

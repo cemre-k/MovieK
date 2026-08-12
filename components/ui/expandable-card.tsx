@@ -81,23 +81,16 @@ export function ExpandableCard({
   }, []);
 
   const { likeMovie, unlikeMovie, likedMovieIds } = useLike();
-  console.log(likedMovieIds);
 
-  const [isLiked, setLiked] = React.useState(likedMovieIds.has(movie.id));
+  const isLiked = likedMovieIds.has(movie.id);
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     if (isLiked) {
-      const success = await unlikeMovie(movie.id);
-      if (success) {
-        setLiked(false);
-      }
+      await unlikeMovie(movie.id);
     } else {
-      const success = await likeMovie(movie);
-      if (success) {
-        setLiked(true);
-      }
+      await likeMovie(movie);
     }
   };
 
