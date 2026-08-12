@@ -23,6 +23,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => listener.subscription.unsubscribe();
   }, [supabase]);
 
+  console.log("user", session?.user);
+
   const value = useMemo<AuthContextValue>(
     () => ({
       supabase,

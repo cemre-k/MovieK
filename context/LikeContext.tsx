@@ -4,29 +4,42 @@ import type { Movie, MovieSearchResult, TvSearchResult } from "@/api/types";
 import type { ReactNode } from "react";
 import type { LikeContextVal } from "./like-context";
 import { LikeContext } from "./like-context";
+import { useAuth } from "@/hooks/useAuth";
 
 function LikeContextProvider({ children }: { children: ReactNode }) {
+  const { user } = useAuth();
   const [likedMovieIds, setLikedMovieIds] = useState<Set<number>>(new Set());
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getLiked = async () => {
-      const { data: likes, error } = await supabase
-        .from("likes")
-        .select("movie_id");
+      setIsLoading(true);
 
-      if (error) {
-        console.log("error", error);
+      if (!user) {
+        setLikedMovieIds(new Set());
+        setIsLoading(false);
         return;
       }
-      console.log("likes", likes);
+
+      const { data: likes, error } = await supabase
+        .from("likes")
+        .select("movie_id")
+        .eq("user_id", user.id);
+
+      if (error) {
+        console.error("Failed to fetch liked movies:", error);
+        setIsLoading(false);
+        return;
+      }
+
       const movieIds = new Set(likes.map((like) => like.movie_id));
 
       setLikedMovieIds(movieIds);
       setIsLoading(false);
     };
+
     getLiked();
-  }, []);
+  }, [user]);
 
   const likeMovie = async (
     movie: Movie | MovieSearchResult | TvSearchResult,
