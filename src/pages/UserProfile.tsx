@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router";
 
-import type { Movie } from "@/api/types";
 import MovieCard from "@/components/MovieCard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -14,24 +13,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useAuth } from "@/hooks/useAuth";
+import { useLikedMovies } from "@/hooks/useLikedMovies";
 import { supabase } from "@/utils/supabase";
-
-type MovieTableRow = {
-  movie_id: number;
-  movie_title: string | null;
-  movie_overview: string | null;
-  movie_poster_path: string | null;
-  movie_backdrop_path: string | null;
-  movie_popularity: number | null;
-  movie_vote_avg: number | null;
-  movie_vote_average?: number | null;
-  movie_vote_count: number | null;
-};
-
-type LikedMovieWithDetailsRow = {
-  movie_id: number;
-  movie: MovieTableRow | MovieTableRow[] | null;
-};
 
 function calculateAge(birthDate: string): number | null {
   const date = new Date(birthDate);
@@ -54,71 +37,15 @@ function calculateAge(birthDate: string): number | null {
   return age;
 }
 
-function mapMovieRowToMovie(row: MovieTableRow): Movie {
-  return {
-    adult: false,
-    backdrop_path: row.movie_backdrop_path,
-    genre_ids: [],
-    id: row.movie_id,
-    original_language: "en",
-    original_title: row.movie_title ?? "Untitled",
-    overview: row.movie_overview ?? "No overview available.",
-    popularity: row.movie_popularity ?? 0,
-    poster_path: row.movie_poster_path,
-    release_date: "",
-    title: row.movie_title ?? "Untitled",
-    video: false,
-    vote_average: row.movie_vote_average ?? row.movie_vote_avg ?? 0,
-    vote_count: row.movie_vote_count ?? 0,
-  };
-}
-
 function UserProfile() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  const [likedMovies, setLikedMovies] = useState<Movie[]>([]);
-  const [isLoadingLikedMovies, setIsLoadingLikedMovies] = useState(true);
-
-  useEffect(() => {
-    const fetchLikedMovies = async () => {
-      if (!user) {
-        setLikedMovies([]);
-        setIsLoadingLikedMovies(false);
-        return;
-      }
-
-      setIsLoadingLikedMovies(true);
-
-      const { data, error } = await supabase
-        .from("likes")
-        .select(
-          "movie_id, movie:movies!inner(movie_id, movie_title, movie_overview, movie_poster_path, movie_backdrop_path, movie_popularity, movie_vote_avg, movie_vote_count)",
-        )
-        .eq("user_id", user.id);
-
-      if (error) {
-        console.error("Failed to load liked movies:", error);
-        setLikedMovies([]);
-        setIsLoadingLikedMovies(false);
-        return;
-      }
-
-      const rows = (data as LikedMovieWithDetailsRow[]) ?? [];
-      const mappedMovies = rows
-        .map((row) =>
-          Array.isArray(row.movie) ? (row.movie[0] ?? null) : row.movie,
-        )
-        .filter((movie): movie is MovieTableRow => movie !== null)
-        .map(mapMovieRowToMovie)
-        .filter((movie) => movie.id > 0);
-
-      setLikedMovies(mappedMovies);
-      setIsLoadingLikedMovies(false);
-    };
-
-    fetchLikedMovies();
-  }, [user]);
+  const {
+    data: likedMovies = [],
+    isLoading: isLoadingLikedMovies,
+    isError: isLikedMoviesError,
+  } = useLikedMovies();
 
   const metadata = (user?.user_metadata ?? {}) as Record<string, unknown>;
 
@@ -143,7 +70,7 @@ function UserProfile() {
       .from("profile_pictures")
       .getPublicUrl(avatarPath);
 
-    return data.publicUrl;
+    return data?.publicUrl ?? "";
   }, [avatarPath]);
 
   const initials = fullName
@@ -202,6 +129,10 @@ function UserProfile() {
           {isLoadingLikedMovies ? (
             <p className='text-sm text-muted-foreground'>
               Loading liked movies...
+            </p>
+          ) : isLikedMoviesError ? (
+            <p className='text-sm text-destructive'>
+              Failed to load liked movies.
             </p>
           ) : likedMovies.length === 0 ? (
             <p className='text-sm text-muted-foreground'>
