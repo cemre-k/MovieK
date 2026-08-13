@@ -140,7 +140,7 @@ function UserProfile() {
               You have not liked any movies yet.
             </p>
           ) : (
-            <div className='flex gap-4'>
+            <div className='mx-auto grid w-fit grid-cols-4 gap-4'>
               {likedMovies.map((movie) => (
                 <MovieCard
                   key={movie.id}
