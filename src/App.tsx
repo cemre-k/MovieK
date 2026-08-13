@@ -30,6 +30,10 @@ function App() {
             path='/update-profile'
             element={<UpdateProfile />}
           />
+          <Route
+            path='/user'
+            element={<UserProfile />}
+          />
         </Route>
         {/* ================= PROTECTED ROUTES ================= */}
         <Route

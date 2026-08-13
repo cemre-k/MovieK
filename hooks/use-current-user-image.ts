@@ -9,14 +9,25 @@ export const useCurrentUserImage = () => {
 
   useEffect(() => {
     const fetchUserImage = () => {
-      if (user != null) {
-        const { data: imgData } = supabase.storage
-          .from("profile_pictures")
-          .getPublicUrl(user.user_metadata.avatar_url);
-
-        setImage(imgData.publicUrl);
+      if (!user) {
+        setImage(null);
+        return;
       }
+
+      const avatarUrl = user.user_metadata.avatar_url;
+
+      if (!avatarUrl) {
+        setImage(null);
+        return;
+      }
+
+      const { data: imgData } = supabase.storage
+        .from("profile_pictures")
+        .getPublicUrl(avatarUrl);
+
+      setImage(imgData.publicUrl);
     };
+
     fetchUserImage();
   }, [user]);
 

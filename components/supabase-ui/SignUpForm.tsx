@@ -20,6 +20,8 @@ export function SignUpForm({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -34,11 +36,19 @@ export function SignUpForm({
       return;
     }
     setIsLoading(true);
+    const fullName = [firstName.trim(), lastName.trim()]
+      .filter(Boolean)
+      .join(" ");
 
     try {
       const { error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            full_name: fullName,
+          },
+        },
       });
       if (error) throw error;
       setSuccess(true);
@@ -78,6 +88,28 @@ export function SignUpForm({
           <CardContent>
             <form onSubmit={handleSignUp}>
               <div className='flex flex-col gap-6'>
+                <div className='flex gap-6'>
+                  <div className='grid gap-2 w-full'>
+                    <Label htmlFor='firstName'>First Name</Label>
+                    <Input
+                      id='firstName'
+                      placeholder='First Name'
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className='grid gap-2 w-full'>
+                    <Label htmlFor='lastName'>Last Name</Label>
+                    <Input
+                      id='lastName'
+                      placeholder='Last Name'
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
                 <div className='grid gap-2'>
                   <Label htmlFor='email'>Email</Label>
                   <Input
