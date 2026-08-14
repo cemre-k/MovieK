@@ -30,7 +30,6 @@ export function SignUpForm({
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-
     if (password !== repeatPassword) {
       setError("Passwords do not match");
       return;
@@ -67,15 +66,15 @@ export function SignUpForm({
       {success ? (
         <Card>
           <CardHeader>
-            <CardTitle className='text-2xl'>
-              Thank you for signing up!
-            </CardTitle>
-            <CardDescription>Check your email to confirm</CardDescription>
+            <CardTitle className='text-2xl'>Welcome!</CardTitle>
+            <CardDescription>
+              Your account has been created successfully.
+            </CardDescription>
           </CardHeader>
+
           <CardContent>
             <p className='text-sm text-muted-foreground'>
-              You&apos;ve successfully signed up. Please check your email to
-              confirm your account before signing in.
+              You&apos;re all set. Your account is ready to use.
             </p>
           </CardContent>
         </Card>
